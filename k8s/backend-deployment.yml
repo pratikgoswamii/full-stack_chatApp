@@ -18,6 +18,18 @@ spec:
           image: pratiikgoswamii/chatapp-backend:latest
           ports:
             - containerPort: 5001
+          env:
+            - name: MONGODB_URI
+              value: "mongodb://mongoadmin:secret@mongodb:27017/dbname?authSource=admin"
+            - name: PORT
+              value: "5001"
+            - name: NODE_ENV
+              value: "production"
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: chatapp-secrets
+                  key: JWT
           resources:
             requests:
               memory: "128Mi"
@@ -25,6 +37,3 @@ spec:
             limits:
               memory: "256Mi"
               cpu: "500m"
-          env:
-            - name: NODE_ENV
-              value: "production"
